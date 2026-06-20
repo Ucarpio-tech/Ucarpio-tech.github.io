@@ -45,10 +45,10 @@ a {
   align-items: center;
 }
 
-.logo {
-  font-weight: 900;
-  letter-spacing: 3px;
-  font-size: 22px;
+.logo img {
+  height: 42px;
+  width: auto;
+  display: block;
 }
 
 .menu {
