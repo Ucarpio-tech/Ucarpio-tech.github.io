@@ -48,19 +48,19 @@ a {
 
 /* LOGO CORREGIDO */
 .navbar .logo {
-  width: 85px;
-  max-width: 85px;
-  height: auto;
+  width: auto !important;
+  max-width: none !important;
+  height: 46px !important;
   display: flex;
   align-items: center;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .navbar .logo img {
-  width: 85px;
-  max-width: 85px;
-  height: auto;
-  max-height: 24px;
+  height: 46px !important;
+  width: auto !important;
+  max-height: 46px !important;
+  max-width: 180px !important;
   object-fit: contain;
   display: block;
 }
@@ -408,15 +408,17 @@ footer {
   }
 
   .navbar .logo {
-    width: 80px;
-    max-width: 80px;
-  }
+  width: auto !important;
+  max-width: none !important;
+  height: 38px !important;
+}
 
-  .navbar .logo img {
-    width: 80px;
-    max-width: 80px;
-    max-height: 22px;
-  }
+.navbar .logo img {
+  height: 38px !important;
+  width: auto !important;
+  max-height: 38px !important;
+  max-width: 150px !important;
+}
 
   .menu {
     gap: 14px;
