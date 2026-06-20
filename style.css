@@ -420,19 +420,19 @@ footer {
     padding: 12px 17px;
     font-size: 14px;
   }
-}
+  
 .navbar .logo {
-  width: 120px !important;
-  max-width: 120px !important;
+  width: 95px !important;
+  max-width: 95px !important;
   height: auto !important;
   overflow: hidden;
 }
 
 .navbar .logo img {
   width: 100% !important;
-  max-width: 120px !important;
+  max-width: 95px !important;
   height: auto !important;
-  max-height: 34px !important;
+  max-height: 26px !important;
   object-fit: contain !important;
   display: block !important;
 }
