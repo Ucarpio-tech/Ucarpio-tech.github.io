@@ -2,34 +2,66 @@ const viewport = document.querySelector(".projects-viewport");
 const track = document.querySelector(".project-track");
 const cards = Array.from(document.querySelectorAll(".project-card"));
 
-const groupSize = 5;           // cantidad de proyectos únicos
-const middleStart = groupSize; // comenzamos en el grupo del medio
+const groupSize = 5;
+const middleStart = groupSize;
 const middleEnd = groupSize * 2 - 1;
 
 let currentIndex = middleStart;
 let autoplay = null;
 
-const stepDuration = 3200;     // pausa entre muestras
-const transitionDuration = 850;
+const stepDuration = 2400;       // más rápido entre muestras
+const transitionDuration = 720;  // transición más ágil
 
 function setTrackPadding() {
   if (!viewport || !cards.length) return;
 
   const cardWidth = cards[0].offsetWidth;
-  const sidePadding = Math.max(24, (viewport.clientWidth - cardWidth) / 2);
+  const sidePadding = Math.max(16, (viewport.clientWidth - cardWidth) / 2);
 
   track.style.paddingLeft = `${sidePadding}px`;
   track.style.paddingRight = `${sidePadding}px`;
+}
+
+function clearCardStates() {
+  cards.forEach((card) => {
+    card.classList.remove(
+      "active",
+      "left-near",
+      "right-near",
+      "left-far",
+      "right-far",
+      "muted"
+    );
+  });
+}
+
+function applyCardStates() {
+  clearCardStates();
+
+  cards.forEach((card, index) => {
+    const diff = index - currentIndex;
+
+    if (diff === 0) {
+      card.classList.add("active");
+    } else if (diff === -1) {
+      card.classList.add("left-near");
+    } else if (diff === 1) {
+      card.classList.add("right-near");
+    } else if (diff === -2) {
+      card.classList.add("left-far");
+    } else if (diff === 2) {
+      card.classList.add("right-far");
+    } else {
+      card.classList.add("muted");
+    }
+  });
 }
 
 function updateCarousel(animate = true) {
   if (!viewport || !track || !cards.length) return;
 
   setTrackPadding();
-
-  cards.forEach((card, index) => {
-    card.classList.toggle("active", index === currentIndex);
-  });
+  applyCardStates();
 
   const activeCard = cards[currentIndex];
   const activeCenter = activeCard.offsetLeft + activeCard.offsetWidth / 2;
@@ -76,5 +108,28 @@ window.addEventListener("resize", () => {
   updateCarousel(false);
 });
 
-viewport.addEventListener("mouseenter", stopAutoplay);
-viewport.addEventListener("mouseleave", startAutoplay);
+if (viewport) {
+  viewport.addEventListener("mouseenter", stopAutoplay);
+  viewport.addEventListener("mouseleave", startAutoplay);
+}
+
+cards.forEach((card, index) => {
+  card.addEventListener("click", () => {
+    stopAutoplay();
+
+    currentIndex = index;
+    updateCarousel(true);
+
+    setTimeout(() => {
+      if (currentIndex < middleStart) {
+        currentIndex += groupSize;
+        updateCarousel(false);
+      } else if (currentIndex > middleEnd) {
+        currentIndex -= groupSize;
+        updateCarousel(false);
+      }
+
+      startAutoplay();
+    }, transitionDuration + 20);
+  });
+});
