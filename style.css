@@ -178,7 +178,7 @@ img {
 
 .project-slide {
   flex: 0 0 72vw;
-  height: 560px;
+  height: 720px;
   scroll-snap-align: start;
   overflow: hidden;
   background: var(--cream);
@@ -637,7 +637,7 @@ h2 {
 
   .project-slide {
     flex: 0 0 88vw;
-    height: 360px;
+    height: 500px;
   }
 
   .intro,
