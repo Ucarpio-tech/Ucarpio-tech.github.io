@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -9,7 +11,7 @@ html {
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Manrope", Arial, Helvetica, sans-serif;
   background: #050505;
   color: #111111;
   line-height: 1.5;
@@ -71,8 +73,10 @@ img {
 }
 
 .nav-menu a {
+  font-family: "Space Grotesk", "Manrope", sans-serif;
   font-size: 15px;
   font-weight: 600;
+  letter-spacing: -0.01em;
   opacity: 0.92;
 }
 
@@ -120,10 +124,11 @@ img {
 .hero-label,
 .eyebrow {
   display: inline-block;
+  font-family: "Space Grotesk", "Manrope", sans-serif;
   font-size: 13px;
   text-transform: uppercase;
-  letter-spacing: 0.28em;
-  font-weight: 800;
+  letter-spacing: 0.24em;
+  font-weight: 700;
 }
 
 .hero-label {
@@ -132,10 +137,11 @@ img {
 
 .hero h1 {
   max-width: 1050px;
+  font-family: "Space Grotesk", "Manrope", sans-serif;
   font-size: clamp(58px, 9vw, 118px);
-  line-height: 0.96;
-  letter-spacing: -0.045em;
-  font-weight: 800;
+  line-height: 0.94;
+  letter-spacing: -0.06em;
+  font-weight: 700;
   margin-bottom: 42px;
 }
 
@@ -151,10 +157,12 @@ img {
 .hero-bottom p {
   max-width: 560px;
   font-size: 21px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
   color: rgba(255, 255, 255, 0.88);
 }
 
-/* PROYECTOS V2.1 */
+/* PROYECTOS V2.1 AJUSTADO */
 .featured-projects {
   position: relative;
   overflow: hidden;
@@ -169,7 +177,7 @@ img {
   inset: 0;
   z-index: -1;
   background:
-    radial-gradient(circle at 50% 42%, rgba(0, 83, 83, 0.18), transparent 34%),
+    radial-gradient(circle at 50% 42%, rgba(0, 83, 83, 0.16), transparent 34%),
     linear-gradient(180deg, #050505 0%, #050505 100%);
 }
 
@@ -197,34 +205,57 @@ img {
   aspect-ratio: 4 / 5;
   border-radius: 34px;
   overflow: visible;
-  opacity: 0.42;
+  opacity: 0.34;
   transform-style: preserve-3d;
   transition:
     transform 0.62s cubic-bezier(0.22, 1, 0.36, 1),
     opacity 0.45s ease;
 }
 
+/* Luz difusa detrás de la imagen seleccionada */
 .project-card::before {
   content: "";
   position: absolute;
   left: 50%;
   top: 52%;
-  width: 105%;
-  height: 105%;
+  width: 108%;
+  height: 108%;
   transform: translate(-50%, -50%);
   background:
     radial-gradient(
       circle,
-      rgba(0, 83, 83, 0.55) 0%,
-      rgba(0, 83, 83, 0.30) 34%,
+      rgba(0, 83, 83, 0.56) 0%,
+      rgba(0, 83, 83, 0.28) 34%,
       rgba(0, 83, 83, 0.08) 58%,
       rgba(0, 83, 83, 0) 76%
     );
-  filter: blur(54px);
+  filter: blur(58px);
   opacity: 0;
   transition: opacity 0.48s ease;
   z-index: -1;
   pointer-events: none;
+}
+
+/* Desvanecimiento sutil en los bordes */
+.project-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 34px;
+  pointer-events: none;
+  z-index: 2;
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(5, 5, 5, 0) 58%,
+      rgba(5, 5, 5, 0.16) 78%,
+      rgba(5, 5, 5, 0.36) 100%
+    );
+  box-shadow:
+    inset 0 0 38px rgba(5, 5, 5, 0.24),
+    inset 0 0 76px rgba(5, 5, 5, 0.14);
+  opacity: 0.72;
+  transition: opacity 0.55s ease;
 }
 
 .project-card img {
@@ -233,7 +264,7 @@ img {
   object-fit: cover;
   object-position: center;
   border-radius: 34px;
-  filter: blur(0.8px) saturate(0.96) brightness(0.86);
+  filter: blur(1px) saturate(0.86) brightness(0.58) contrast(0.98);
   box-shadow: none;
   transition:
     filter 0.62s ease,
@@ -250,58 +281,62 @@ img {
   opacity: 1;
 }
 
+.project-card.active::after {
+  opacity: 0.46;
+}
+
 .project-card.active img {
   filter: saturate(1.04) contrast(1.03) brightness(1);
 }
 
 .project-card.left-near {
-  opacity: 0.82;
+  opacity: 0.64;
   transform: perspective(1600px) rotateY(28deg) rotateZ(-2deg) scale(1.02) translateY(18px);
   z-index: 6;
 }
 
 .project-card.left-near img {
-  filter: blur(0.25px) saturate(1) brightness(0.92);
+  filter: blur(0.35px) saturate(0.9) brightness(0.62) contrast(0.98);
 }
 
 .project-card.right-near {
-  opacity: 0.82;
+  opacity: 0.64;
   transform: perspective(1600px) rotateY(-28deg) rotateZ(2deg) scale(1.02) translateY(18px);
   z-index: 6;
 }
 
 .project-card.right-near img {
-  filter: blur(0.25px) saturate(1) brightness(0.92);
+  filter: blur(0.35px) saturate(0.9) brightness(0.62) contrast(0.98);
 }
 
 .project-card.left-far {
-  opacity: 0.58;
+  opacity: 0.42;
   transform: perspective(1600px) rotateY(38deg) rotateZ(-3deg) scale(0.94) translateY(34px);
   z-index: 4;
 }
 
 .project-card.left-far img {
-  filter: blur(0.65px) saturate(0.96) brightness(0.82);
+  filter: blur(0.8px) saturate(0.82) brightness(0.48) contrast(0.94);
 }
 
 .project-card.right-far {
-  opacity: 0.58;
+  opacity: 0.42;
   transform: perspective(1600px) rotateY(-38deg) rotateZ(3deg) scale(0.94) translateY(34px);
   z-index: 4;
 }
 
 .project-card.right-far img {
-  filter: blur(0.65px) saturate(0.96) brightness(0.82);
+  filter: blur(0.8px) saturate(0.82) brightness(0.48) contrast(0.94);
 }
 
 .project-card.muted {
-  opacity: 0.28;
+  opacity: 0.20;
   transform: perspective(1600px) scale(0.86) translateY(38px);
   z-index: 1;
 }
 
 .project-card.muted img {
-  filter: blur(1px) saturate(0.9) brightness(0.72);
+  filter: blur(1.1px) saturate(0.76) brightness(0.38) contrast(0.9);
 }
 
 /* INTRO */
@@ -324,14 +359,17 @@ img {
 }
 
 h2 {
+  font-family: "Space Grotesk", "Manrope", sans-serif;
   font-size: clamp(42px, 6vw, 82px);
-  line-height: 0.98;
-  letter-spacing: -0.055em;
-  font-weight: 800;
+  line-height: 0.96;
+  letter-spacing: -0.06em;
+  font-weight: 700;
 }
 
 .text-block p {
   font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
   color: var(--dark);
   margin-bottom: 26px;
 }
@@ -340,7 +378,8 @@ h2 {
   display: inline-block;
   margin-top: 14px;
   color: var(--green);
-  font-weight: 800;
+  font-family: "Space Grotesk", "Manrope", sans-serif;
+  font-weight: 700;
   border-bottom: 2px solid var(--green);
 }
 
@@ -366,21 +405,26 @@ h2 {
 }
 
 .number-card strong {
+  font-family: "Space Grotesk", "Manrope", sans-serif;
   font-size: clamp(68px, 9vw, 120px);
   line-height: 0.85;
   letter-spacing: -0.08em;
+  font-weight: 700;
 }
 
 .number-card span {
   display: block;
+  font-family: "Space Grotesk", "Manrope", sans-serif;
   font-size: 25px;
-  font-weight: 800;
+  font-weight: 700;
+  letter-spacing: -0.03em;
   margin-bottom: 18px;
 }
 
 .number-card p {
   color: rgba(255,255,255,0.82);
   font-size: 17px;
+  font-weight: 500;
 }
 
 /* STATEMENT */
@@ -402,6 +446,8 @@ h2 {
 .statement p {
   max-width: 700px;
   font-size: 23px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
   color: rgba(255,255,255,0.76);
 }
 
@@ -433,19 +479,24 @@ h2 {
 
 .service-item span {
   color: var(--green);
-  font-weight: 900;
+  font-family: "Space Grotesk", "Manrope", sans-serif;
+  font-weight: 700;
   font-size: 14px;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.16em;
 }
 
 .service-item h3 {
+  font-family: "Space Grotesk", "Manrope", sans-serif;
   font-size: clamp(28px, 4vw, 46px);
-  line-height: 1;
-  letter-spacing: -0.045em;
+  line-height: 0.98;
+  letter-spacing: -0.05em;
+  font-weight: 700;
 }
 
 .service-item p {
   font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.015em;
   color: var(--muted);
   max-width: 480px;
 }
@@ -476,18 +527,21 @@ h2 {
   border-radius: 50%;
   display: grid;
   place-items: center;
-  font-weight: 900;
+  font-family: "Space Grotesk", "Manrope", sans-serif;
+  font-weight: 700;
 }
 
 .process-step h3 {
+  font-family: "Space Grotesk", "Manrope", sans-serif;
   font-size: 28px;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.04em;
   margin-bottom: 8px;
 }
 
 .process-step p {
   color: var(--muted);
   font-size: 18px;
+  font-weight: 500;
 }
 
 /* CIERRE + FOOTER */
@@ -509,10 +563,11 @@ h2 {
 
 .closing-eyebrow {
   display: inline-block;
+  font-family: "Space Grotesk", "Manrope", sans-serif;
   font-size: 13px;
   text-transform: uppercase;
-  letter-spacing: 0.28em;
-  font-weight: 800;
+  letter-spacing: 0.24em;
+  font-weight: 700;
   color: rgba(255,255,255,0.72);
   margin-bottom: 28px;
 }
@@ -522,8 +577,8 @@ h2 {
   margin: 0 auto;
   color: var(--white);
   font-size: clamp(52px, 8vw, 110px);
-  line-height: 0.94;
-  letter-spacing: -0.06em;
+  line-height: 0.92;
+  letter-spacing: -0.065em;
 }
 
 .footer {
@@ -563,6 +618,7 @@ h2 {
   align-items: flex-start;
   color: rgba(255,255,255,0.78);
   font-size: 15px;
+  font-weight: 500;
   line-height: 1.55;
   margin-bottom: 18px;
   transition: 0.25s ease;
@@ -618,6 +674,7 @@ h2 {
 .footer-bottom p {
   color: rgba(255,255,255,0.55);
   font-size: 13px;
+  font-weight: 500;
 }
 
 /* WHATSAPP */
@@ -760,6 +817,10 @@ h2 {
     border-radius: 26px;
   }
 
+  .project-card::after {
+    border-radius: 26px;
+  }
+
   .project-card img {
     border-radius: 26px;
   }
@@ -769,18 +830,22 @@ h2 {
   }
 
   .project-card.left-near {
+    opacity: 0.62;
     transform: perspective(1300px) rotateY(18deg) rotateZ(-1.5deg) scale(0.98) translateY(12px);
   }
 
   .project-card.right-near {
+    opacity: 0.62;
     transform: perspective(1300px) rotateY(-18deg) rotateZ(1.5deg) scale(0.98) translateY(12px);
   }
 
   .project-card.left-far {
+    opacity: 0.38;
     transform: perspective(1300px) rotateY(24deg) rotateZ(-2deg) scale(0.9) translateY(22px);
   }
 
   .project-card.right-far {
+    opacity: 0.38;
     transform: perspective(1300px) rotateY(-24deg) rotateZ(2deg) scale(0.9) translateY(22px);
   }
 
@@ -868,6 +933,5 @@ h2 {
     right: 16px;
     bottom: 16px;
     width: 54px;
-    height: 54px;
   }
 }
