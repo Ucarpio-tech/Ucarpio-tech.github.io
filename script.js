@@ -1,48 +1,55 @@
-const viewport = document.querySelector(".projects-viewport");
-const track = document.querySelector(".project-track");
-const cards = Array.from(document.querySelectorAll(".project-card"));
+document.addEventListener("DOMContentLoaded", () => {
+  const viewport = document.querySelector(".projects-viewport");
+  const cards = Array.from(document.querySelectorAll(".project-card"));
 
-const groupSize = 5;
-const middleStart = groupSize;
-const middleEnd = groupSize * 2 - 1;
+  if (!viewport || cards.length === 0) {
+    return;
+  }
 
-let currentIndex = middleStart;
-let autoplay = null;
+  const stateClasses = [
+    "active",
+    "left-near",
+    "right-near",
+    "left-far",
+    "right-far",
+    "muted"
+  ];
 
-const stepDuration = 2100;
-const transitionDuration = 620;
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const displayDelay = 2300;
+  const resumeDelay = 1200;
 
-function setTrackPadding() {
-  if (!viewport || !cards.length) return;
+  let activeIndex = 0;
+  let autoplayTimer = null;
 
-  const cardWidth = cards[0].offsetWidth;
-  const sidePadding = Math.max(18, (viewport.clientWidth - cardWidth) / 2);
+  function wrappedIndex(index) {
+    return (index + cards.length) % cards.length;
+  }
 
-  track.style.paddingLeft = `${sidePadding}px`;
-  track.style.paddingRight = `${sidePadding}px`;
-}
+  function shortestDiff(index) {
+    let diff = index - activeIndex;
+    const half = Math.floor(cards.length / 2);
 
-function clearCardStates() {
-  cards.forEach((card) => {
-    card.classList.remove(
-      "active",
-      "left-near",
-      "right-near",
-      "left-far",
-      "right-far",
-      "muted"
-    );
-  });
-}
+    if (diff > half) {
+      diff -= cards.length;
+    }
 
-function applyCardStates() {
-  clearCardStates();
+    if (diff < -half) {
+      diff += cards.length;
+    }
 
-  cards.forEach((card, index) => {
-    const diff = index - currentIndex;
+    return diff;
+  }
+
+  function setCardState(card, diff, index) {
+    card.classList.remove(...stateClasses);
+    card.removeAttribute("aria-current");
+
+    const control = card.querySelector(".project-select");
 
     if (diff === 0) {
       card.classList.add("active");
+      card.setAttribute("aria-current", "true");
     } else if (diff === -1) {
       card.classList.add("left-near");
     } else if (diff === 1) {
@@ -54,82 +61,81 @@ function applyCardStates() {
     } else {
       card.classList.add("muted");
     }
-  });
-}
 
-function updateCarousel(animate = true) {
-  if (!viewport || !track || !cards.length) return;
-
-  setTrackPadding();
-  applyCardStates();
-
-  const activeCard = cards[currentIndex];
-  const activeCenter = activeCard.offsetLeft + activeCard.offsetWidth / 2;
-  const viewportCenter = viewport.clientWidth / 2;
-  const targetX = activeCenter - viewportCenter;
-
-  track.style.transition = animate
-    ? `transform ${transitionDuration}ms cubic-bezier(0.22, 1, 0.36, 1)`
-    : "none";
-
-  track.style.transform = `translateX(${-targetX}px)`;
-}
-
-function normalizeIndex() {
-  if (currentIndex < middleStart) {
-    currentIndex += groupSize;
-    updateCarousel(false);
+    if (control) {
+      control.setAttribute("aria-pressed", String(index === activeIndex));
+    }
   }
 
-  if (currentIndex > middleEnd) {
-    currentIndex -= groupSize;
-    updateCarousel(false);
+  function render() {
+    cards.forEach((card, index) => {
+      setCardState(card, shortestDiff(index), index);
+    });
   }
-}
 
-function nextSlide() {
-  currentIndex += 1;
-  updateCarousel(true);
-
-  setTimeout(normalizeIndex, transitionDuration + 30);
-}
-
-function startAutoplay() {
-  stopAutoplay();
-  autoplay = setInterval(nextSlide, stepDuration);
-}
-
-function stopAutoplay() {
-  if (autoplay) {
-    clearInterval(autoplay);
-    autoplay = null;
+  function stopAutoplay() {
+    if (autoplayTimer) {
+      window.clearTimeout(autoplayTimer);
+      autoplayTimer = null;
+    }
   }
-}
 
-window.addEventListener("load", () => {
-  updateCarousel(false);
-  startAutoplay();
-});
-
-window.addEventListener("resize", () => {
-  updateCarousel(false);
-});
-
-if (viewport) {
-  viewport.addEventListener("mouseenter", stopAutoplay);
-  viewport.addEventListener("mouseleave", startAutoplay);
-}
-
-cards.forEach((card, index) => {
-  card.addEventListener("click", () => {
+  function startAutoplay(delay = displayDelay) {
     stopAutoplay();
 
-    currentIndex = index;
-    updateCarousel(true);
+    if (cards.length < 2 || prefersReducedMotion.matches) {
+      return;
+    }
 
-    setTimeout(() => {
-      normalizeIndex();
+    autoplayTimer = window.setTimeout(() => {
+      activeIndex = wrappedIndex(activeIndex + 1);
+      render();
       startAutoplay();
-    }, transitionDuration + 40);
+    }, delay);
+  }
+
+  function selectCard(index) {
+    activeIndex = wrappedIndex(index);
+    render();
+    startAutoplay(resumeDelay);
+  }
+
+  cards.forEach((card, index) => {
+    const control = card.querySelector(".project-select") || card;
+
+    control.addEventListener("click", () => {
+      selectCard(index);
+    });
   });
+
+  viewport.addEventListener("pointerenter", stopAutoplay);
+  viewport.addEventListener("pointerleave", () => startAutoplay(resumeDelay));
+  viewport.addEventListener("focusin", stopAutoplay);
+  viewport.addEventListener("focusout", (event) => {
+    if (!viewport.contains(event.relatedTarget)) {
+      startAutoplay(resumeDelay);
+    }
+  });
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+      stopAutoplay();
+    } else {
+      startAutoplay(resumeDelay);
+    }
+  });
+
+  const handleMotionChange = () => {
+    render();
+    startAutoplay(resumeDelay);
+  };
+
+  if (typeof prefersReducedMotion.addEventListener === "function") {
+    prefersReducedMotion.addEventListener("change", handleMotionChange);
+  } else if (typeof prefersReducedMotion.addListener === "function") {
+    prefersReducedMotion.addListener(handleMotionChange);
+  }
+
+  render();
+  startAutoplay();
 });
