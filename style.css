@@ -112,7 +112,7 @@ img {
   right: 0;
   bottom: -1px;
   height: 220px;
-  background: linear-gradient(180deg, rgba(5,5,5,0), #050505 72%);
+  background: linear-gradient(180deg, rgba(5, 5, 5, 0), #050505 72%);
   z-index: 1;
   pointer-events: none;
 }
@@ -156,245 +156,141 @@ img {
   grid-template-columns: 1fr;
   gap: 50px;
   align-items: end;
-  border-top: 1px solid rgba(255,255,255,0.25);
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
   padding-top: 32px;
 }
 
 .hero-bottom p {
   max-width: 560px;
   font-size: 21px;
-  color: rgba(255,255,255,0.88);
+  color: rgba(255, 255, 255, 0.88);
 }
 
-/* PROYECTOS DESTACADOS - ESTILO TEMPLATES */
+/* PROYECTOS */
 .featured-projects {
   position: relative;
   overflow: hidden;
   background: #050505;
-  padding: 18px 0 130px;
+  padding: 24px 0 130px;
   color: var(--white);
   isolation: isolate;
 }
 
-.projects-background {
+.projects-bg-layer {
   position: absolute;
   inset: 0;
+  z-index: -2;
   background:
-    radial-gradient(circle at 16% 20%, rgba(0, 83, 83, 0.48), transparent 34%),
-    radial-gradient(circle at 78% 58%, rgba(255,255,255,0.09), transparent 28%),
-    radial-gradient(circle at 50% 100%, rgba(0,83,83,0.22), transparent 36%),
+    radial-gradient(circle at 20% 25%, rgba(0, 83, 83, 0.38), transparent 30%),
+    radial-gradient(circle at 80% 50%, rgba(255, 255, 255, 0.08), transparent 20%),
     linear-gradient(180deg, #050505 0%, #050505 100%);
-  pointer-events: none;
-  z-index: -3;
 }
 
-.projects-background::before {
+.projects-bg-layer::before {
   content: "";
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
   background-size: 82px 82px;
-  opacity: 0.16;
-  mask-image: linear-gradient(180deg, transparent, black 22%, black 72%, transparent);
+  opacity: 0.14;
+  mask-image: linear-gradient(180deg, transparent, black 20%, black 80%, transparent);
 }
 
-.projects-background::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(180deg, #050505 0%, transparent 18%, transparent 74%, #050505 100%);
-}
-
-.template-stage {
+.projects-viewport {
   position: relative;
-  z-index: 2;
   width: 100%;
   overflow: hidden;
-  padding: 38px 0;
-  perspective: 1400px;
+  padding: 40px 0;
 }
 
-.template-stage::before,
-.template-stage::after {
+.projects-viewport::before,
+.projects-viewport::after {
   content: "";
   position: absolute;
   top: 0;
-  width: 14vw;
+  width: 15vw;
   height: 100%;
-  z-index: 10;
+  z-index: 6;
   pointer-events: none;
 }
 
-.template-stage::before {
+.projects-viewport::before {
   left: 0;
-  background: linear-gradient(90deg, #050505 0%, rgba(5,5,5,0) 100%);
+  background: linear-gradient(90deg, #050505 0%, rgba(5, 5, 5, 0) 100%);
 }
 
-.template-stage::after {
+.projects-viewport::after {
   right: 0;
-  background: linear-gradient(270deg, #050505 0%, rgba(5,5,5,0) 100%);
+  background: linear-gradient(270deg, #050505 0%, rgba(5, 5, 5, 0) 100%);
 }
 
-.template-row {
+.project-track {
   display: flex;
   align-items: center;
+  gap: 28px;
   width: max-content;
-  gap: 34px;
+  transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: transform;
 }
 
-.template-row-one {
-  animation: templateMoveLeft 50s linear infinite;
-  margin-bottom: 42px;
-}
-
-.template-row-two {
-  animation: templateMoveRight 58s linear infinite;
-  transform: translateX(-50%);
-}
-
-.template-stage:hover .template-row {
-  animation-play-state: paused;
-}
-
-.project-template {
+.project-card {
   position: relative;
   flex: 0 0 auto;
-  overflow: hidden;
-  background: rgba(255,255,255,0.035);
-  border: 1px solid rgba(255,255,255,0.10);
-  box-shadow:
-    0 34px 90px rgba(0,0,0,0.48),
-    0 0 0 1px rgba(255,255,255,0.035),
-    inset 0 0 0 1px rgba(255,255,255,0.04);
-  transform-style: preserve-3d;
-  animation: templateFloat 7s ease-in-out infinite;
+  width: min(360px, 72vw);
+  aspect-ratio: 4 / 5;
+  border-radius: 30px;
+  overflow: visible;
+  opacity: 0.24;
+  transform: scale(0.86);
+  transition:
+    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.65s ease;
 }
 
-.template-tall {
-  width: min(410px, 72vw);
-  height: 580px;
-}
-
-.template-wide {
-  width: min(620px, 86vw);
-  height: 420px;
-}
-
-.project-template:nth-child(2n) {
-  animation-delay: -1.4s;
-}
-
-.project-template:nth-child(3n) {
-  animation-delay: -2.7s;
-}
-
-.project-template:nth-child(4n) {
-  animation-delay: -4.2s;
-}
-
-.project-template::before {
+.project-card::before {
   content: "";
   position: absolute;
-  inset: -1px;
-  z-index: 3;
-  background:
-    linear-gradient(
-      115deg,
-      transparent 0%,
-      rgba(255,255,255,0.04) 24%,
-      rgba(255,255,255,0.28) 42%,
-      rgba(0,255,220,0.17) 50%,
-      rgba(255,255,255,0.09) 58%,
-      transparent 76%
-    );
-  transform: translateX(-145%) skewX(-16deg);
-  animation: templateHologram 6.4s ease-in-out infinite;
-  mix-blend-mode: screen;
+  width: 82%;
+  height: 82%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(0, 83, 83, 0.58) 0%, rgba(0, 83, 83, 0.22) 40%, rgba(0, 83, 83, 0) 72%);
+  filter: blur(44px);
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  z-index: -1;
   pointer-events: none;
 }
 
-.project-template::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 4;
-  pointer-events: none;
-  background:
-    radial-gradient(circle at 12% 0%, rgba(255,255,255,0.30), transparent 22%),
-    linear-gradient(180deg, rgba(255,255,255,0.10), transparent 38%, rgba(0,0,0,0.28));
-  opacity: 0.52;
-}
-
-.project-template img {
+.project-card img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
-  filter: saturate(1.06) contrast(1.04);
-  transition: 0.75s ease;
+  border-radius: 30px;
+  filter: blur(4px) saturate(0.75) brightness(0.7);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.32);
+  transition:
+    filter 0.75s ease,
+    box-shadow 0.75s ease;
 }
 
-.project-template:hover img {
-  transform: scale(1.035);
+.project-card.active {
+  opacity: 1;
+  transform: scale(1);
+  z-index: 3;
 }
 
-.project-template:hover::before {
-  animation-duration: 2.4s;
+.project-card.active::before {
+  opacity: 1;
 }
 
-@keyframes templateMoveLeft {
-  from {
-    transform: translateX(0);
-  }
-
-  to {
-    transform: translateX(calc(-50% - 17px));
-  }
-}
-
-@keyframes templateMoveRight {
-  from {
-    transform: translateX(calc(-50% - 17px));
-  }
-
-  to {
-    transform: translateX(0);
-  }
-}
-
-@keyframes templateHologram {
-  0% {
-    transform: translateX(-145%) skewX(-16deg);
-    opacity: 0;
-  }
-
-  16% {
-    opacity: 0.82;
-  }
-
-  48% {
-    transform: translateX(145%) skewX(-16deg);
-    opacity: 0.62;
-  }
-
-  100% {
-    transform: translateX(145%) skewX(-16deg);
-    opacity: 0;
-  }
-}
-
-@keyframes templateFloat {
-  0%, 100% {
-    translate: 0 0;
-  }
-
-  50% {
-    translate: 0 -16px;
-  }
+.project-card.active img {
+  filter: none;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.44);
 }
 
 /* INTRO */
@@ -583,7 +479,7 @@ h2 {
   font-size: 18px;
 }
 
-/* CIERRE + FOOTER UNIFICADO */
+/* CIERRE + FOOTER */
 .closing {
   position: relative;
   overflow: hidden;
@@ -759,16 +655,6 @@ h2 {
     gap: 28px;
   }
 
-  .template-tall {
-    width: 360px;
-    height: 520px;
-  }
-
-  .template-wide {
-    width: 520px;
-    height: 360px;
-  }
-
   .section-grid {
     grid-template-columns: 1fr;
     gap: 45px;
@@ -847,34 +733,20 @@ h2 {
   }
 
   .featured-projects {
-    padding: 24px 0 78px;
+    padding: 10px 0 78px;
   }
 
-  .template-stage {
-    padding: 22px 0;
+  .projects-viewport {
+    padding: 24px 0;
   }
 
-  .template-row {
-    gap: 18px;
-  }
-
-  .template-row-one {
-    margin-bottom: 26px;
-    animation-duration: 36s;
-  }
-
-  .template-row-two {
-    animation-duration: 42s;
-  }
-
-  .template-tall {
+  .project-card {
     width: 72vw;
-    height: 460px;
+    border-radius: 24px;
   }
 
-  .template-wide {
-    width: 84vw;
-    height: 330px;
+  .project-card img {
+    border-radius: 24px;
   }
 
   .intro,
