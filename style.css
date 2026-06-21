@@ -185,7 +185,8 @@ img {
   overflow: hidden;
   height: clamp(460px, 58vw, 720px);
   padding: 42px 0 54px;
-  perspective: 1500px;
+  perspective: 1200px;
+  contain: layout paint;
 }
 
 .project-track {
@@ -208,10 +209,11 @@ img {
   pointer-events: none;
   transform-style: preserve-3d;
   transition:
-    transform 0.76s cubic-bezier(0.16, 1, 0.3, 1),
-    opacity 0.48s ease,
-    filter 0.48s ease;
+    transform 0.68s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.42s ease;
   will-change: transform, opacity;
+  --edge-opacity: 0.78;
+  --veil-opacity: 0.18;
 }
 
 .project-card::before {
@@ -225,14 +227,14 @@ img {
   background:
     radial-gradient(
       circle,
-      rgba(0, 83, 83, 0.62) 0%,
-      rgba(0, 83, 83, 0.34) 32%,
-      rgba(0, 83, 83, 0.1) 62%,
+      rgba(0, 83, 83, 0.52) 0%,
+      rgba(0, 83, 83, 0.26) 34%,
+      rgba(0, 83, 83, 0.08) 62%,
       rgba(0, 83, 83, 0) 78%
     );
-  filter: blur(62px);
+  filter: blur(32px);
   opacity: 0;
-  transition: opacity 0.54s ease;
+  transition: opacity 0.46s ease;
   z-index: -1;
   pointer-events: none;
 }
@@ -250,12 +252,10 @@ img {
       rgba(5, 5, 5, 0) 52%,
       rgba(5, 5, 5, 0.18) 78%,
       rgba(5, 5, 5, 0.48) 100%
-    );
-  box-shadow:
-    inset 0 0 34px rgba(5, 5, 5, 0.22),
-    inset 0 0 86px rgba(5, 5, 5, 0.18);
-  opacity: 0.78;
-  transition: opacity 0.55s ease;
+    ),
+    linear-gradient(rgba(5, 5, 5, var(--veil-opacity)), rgba(5, 5, 5, var(--veil-opacity)));
+  opacity: var(--edge-opacity);
+  transition: opacity 0.42s ease;
 }
 
 .project-select {
@@ -281,20 +281,17 @@ img {
   object-fit: cover;
   object-position: center;
   border-radius: 34px;
-  filter: blur(0.35px) saturate(0.78) brightness(0.48) contrast(0.96);
   box-shadow: none;
-  -webkit-mask-image: radial-gradient(ellipse at center, #000 56%, rgba(0, 0, 0, 0.9) 76%, rgba(0, 0, 0, 0.58) 100%);
-  mask-image: radial-gradient(ellipse at center, #000 56%, rgba(0, 0, 0, 0.9) 76%, rgba(0, 0, 0, 0.58) 100%);
-  transition:
-    filter 0.62s ease,
-    transform 0.62s ease;
+  transform: translateZ(0);
 }
 
 .project-card.active {
   opacity: 1;
   pointer-events: auto;
-  transform: translate(-50%, -50%) rotateY(0deg) scale(1.08);
+  transform: translate3d(-50%, -50%, 0) rotateY(0deg) scale(1.08);
   z-index: 10;
+  --edge-opacity: 0.48;
+  --veil-opacity: 0;
 }
 
 .project-card.active::before {
@@ -305,62 +302,46 @@ img {
   opacity: 0.46;
 }
 
-.project-card.active img {
-  filter: saturate(1.04) contrast(1.03) brightness(1);
-}
-
 .project-card.left-near {
-  opacity: 0.68;
+  opacity: 0.72;
   pointer-events: auto;
-  transform: translate(calc(-50% - clamp(180px, 25vw, 365px)), calc(-50% + 18px)) rotateY(28deg) rotateZ(-1.8deg) scale(0.9);
+  transform: translate3d(calc(-50% - clamp(180px, 25vw, 365px)), calc(-50% + 18px), 0) rotateY(26deg) rotateZ(-1.6deg) scale(0.9);
   z-index: 6;
-}
-
-.project-card.left-near img {
-  filter: blur(0.18px) saturate(0.86) brightness(0.58) contrast(0.98);
+  --edge-opacity: 0.8;
+  --veil-opacity: 0.28;
 }
 
 .project-card.right-near {
-  opacity: 0.68;
+  opacity: 0.72;
   pointer-events: auto;
-  transform: translate(calc(-50% + clamp(180px, 25vw, 365px)), calc(-50% + 18px)) rotateY(-28deg) rotateZ(1.8deg) scale(0.9);
+  transform: translate3d(calc(-50% + clamp(180px, 25vw, 365px)), calc(-50% + 18px), 0) rotateY(-26deg) rotateZ(1.6deg) scale(0.9);
   z-index: 6;
-}
-
-.project-card.right-near img {
-  filter: blur(0.18px) saturate(0.86) brightness(0.58) contrast(0.98);
+  --edge-opacity: 0.8;
+  --veil-opacity: 0.28;
 }
 
 .project-card.left-far {
-  opacity: 0.42;
+  opacity: 0.46;
   pointer-events: auto;
-  transform: translate(calc(-50% - clamp(330px, 46vw, 665px)), calc(-50% + 44px)) rotateY(40deg) rotateZ(-2.7deg) scale(0.74);
+  transform: translate3d(calc(-50% - clamp(330px, 46vw, 665px)), calc(-50% + 44px), 0) rotateY(36deg) rotateZ(-2.4deg) scale(0.74);
   z-index: 4;
-}
-
-.project-card.left-far img {
-  filter: blur(0.32px) saturate(0.74) brightness(0.42) contrast(0.94);
+  --edge-opacity: 0.86;
+  --veil-opacity: 0.42;
 }
 
 .project-card.right-far {
-  opacity: 0.42;
+  opacity: 0.46;
   pointer-events: auto;
-  transform: translate(calc(-50% + clamp(330px, 46vw, 665px)), calc(-50% + 44px)) rotateY(-40deg) rotateZ(2.7deg) scale(0.74);
+  transform: translate3d(calc(-50% + clamp(330px, 46vw, 665px)), calc(-50% + 44px), 0) rotateY(-36deg) rotateZ(2.4deg) scale(0.74);
   z-index: 4;
-}
-
-.project-card.right-far img {
-  filter: blur(0.32px) saturate(0.74) brightness(0.42) contrast(0.94);
+  --edge-opacity: 0.86;
+  --veil-opacity: 0.42;
 }
 
 .project-card.muted {
   opacity: 0;
-  transform: translate(-50%, -50%) scale(0.66);
+  transform: translate3d(-50%, -50%, 0) scale(0.66);
   z-index: 1;
-}
-
-.project-card.muted img {
-  filter: blur(0.4px) saturate(0.7) brightness(0.36) contrast(0.9);
 }
 
 .projects-proof {
@@ -415,6 +396,10 @@ img {
   display: grid;
   grid-template-columns: 0.9fr 1.1fr;
   gap: 90px;
+}
+
+.intro .text-block {
+  padding-top: 44px;
 }
 
 .eyebrow {
@@ -792,6 +777,10 @@ h2 {
     gap: 45px;
   }
 
+  .intro .text-block {
+    padding-top: 0;
+  }
+
   .projects-proof {
     grid-template-columns: 1fr;
   }
@@ -901,27 +890,27 @@ h2 {
   }
 
   .project-card.active {
-    transform: translate(-50%, -50%) rotateY(0deg) scale(1.04);
+    transform: translate3d(-50%, -50%, 0) rotateY(0deg) scale(1.04);
   }
 
   .project-card.left-near {
     opacity: 0.58;
-    transform: translate(calc(-50% - clamp(120px, 42vw, 210px)), calc(-50% + 12px)) rotateY(20deg) rotateZ(-1.4deg) scale(0.78);
+    transform: translate3d(calc(-50% - clamp(120px, 42vw, 210px)), calc(-50% + 12px), 0) rotateY(20deg) rotateZ(-1.4deg) scale(0.78);
   }
 
   .project-card.right-near {
     opacity: 0.58;
-    transform: translate(calc(-50% + clamp(120px, 42vw, 210px)), calc(-50% + 12px)) rotateY(-20deg) rotateZ(1.4deg) scale(0.78);
+    transform: translate3d(calc(-50% + clamp(120px, 42vw, 210px)), calc(-50% + 12px), 0) rotateY(-20deg) rotateZ(1.4deg) scale(0.78);
   }
 
   .project-card.left-far {
     opacity: 0.24;
-    transform: translate(calc(-50% - clamp(210px, 74vw, 360px)), calc(-50% + 24px)) rotateY(25deg) rotateZ(-2deg) scale(0.58);
+    transform: translate3d(calc(-50% - clamp(210px, 74vw, 360px)), calc(-50% + 24px), 0) rotateY(25deg) rotateZ(-2deg) scale(0.58);
   }
 
   .project-card.right-far {
     opacity: 0.24;
-    transform: translate(calc(-50% + clamp(210px, 74vw, 360px)), calc(-50% + 24px)) rotateY(-25deg) rotateZ(2deg) scale(0.58);
+    transform: translate3d(calc(-50% + clamp(210px, 74vw, 360px)), calc(-50% + 24px), 0) rotateY(-25deg) rotateZ(2deg) scale(0.58);
   }
 
   .projects-proof {

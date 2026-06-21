@@ -21,6 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let activeIndex = 0;
   let autoplayTimer = null;
+  let carouselVisible = true;
+  let userPaused = false;
 
   function wrappedIndex(index) {
     return (index + cards.length) % cards.length;
@@ -83,7 +85,13 @@ document.addEventListener("DOMContentLoaded", () => {
   function startAutoplay(delay = displayDelay) {
     stopAutoplay();
 
-    if (cards.length < 2 || prefersReducedMotion.matches) {
+    if (
+      cards.length < 2 ||
+      prefersReducedMotion.matches ||
+      document.hidden ||
+      !carouselVisible ||
+      userPaused
+    ) {
       return;
     }
 
@@ -108,11 +116,24 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  viewport.addEventListener("pointerenter", stopAutoplay);
-  viewport.addEventListener("pointerleave", () => startAutoplay(resumeDelay));
-  viewport.addEventListener("focusin", stopAutoplay);
+  viewport.addEventListener("pointerenter", () => {
+    userPaused = true;
+    stopAutoplay();
+  });
+
+  viewport.addEventListener("pointerleave", () => {
+    userPaused = false;
+    startAutoplay(resumeDelay);
+  });
+
+  viewport.addEventListener("focusin", () => {
+    userPaused = true;
+    stopAutoplay();
+  });
+
   viewport.addEventListener("focusout", (event) => {
     if (!viewport.contains(event.relatedTarget)) {
+      userPaused = false;
       startAutoplay(resumeDelay);
     }
   });
@@ -134,6 +155,25 @@ document.addEventListener("DOMContentLoaded", () => {
     prefersReducedMotion.addEventListener("change", handleMotionChange);
   } else if (typeof prefersReducedMotion.addListener === "function") {
     prefersReducedMotion.addListener(handleMotionChange);
+  }
+
+  if ("IntersectionObserver" in window) {
+    carouselVisible = false;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        carouselVisible = entries.some((entry) => entry.isIntersecting);
+
+        if (carouselVisible) {
+          startAutoplay(resumeDelay);
+        } else {
+          stopAutoplay();
+        }
+      },
+      { threshold: 0.18 }
+    );
+
+    observer.observe(viewport.closest(".featured-projects") || viewport);
   }
 
   render();
