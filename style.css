@@ -239,6 +239,7 @@ img {
   transition: opacity 0.46s ease;
   z-index: -1;
   pointer-events: none;
+  transform-origin: center;
 }
 
 .project-card::after {
@@ -303,7 +304,7 @@ img {
 }
 
 .project-card.active::before {
-  opacity: 1;
+  opacity: 0.88;
 }
 
 .project-card.active::after {
@@ -900,6 +901,13 @@ h2 {
     border-radius: 26px;
   }
 
+  .project-card::before {
+    top: 58%;
+    width: 92%;
+    height: 72%;
+    filter: blur(28px);
+  }
+
   .project-card::after {
     border-radius: 26px;
   }
@@ -910,26 +918,33 @@ h2 {
 
   .project-card.active {
     transform: translate3d(-50%, -50%, 0) rotateY(0deg) scale(1.04);
+    --edge-opacity: 0.42;
   }
 
   .project-card.left-near {
-    opacity: 0.46;
-    transform: translate3d(calc(-50% - clamp(120px, 42vw, 210px)), calc(-50% + 12px), 0) rotateY(20deg) rotateZ(-1.4deg) scale(0.78);
+    opacity: 0.32;
+    transform: translate3d(calc(-50% - clamp(130px, 46vw, 230px)), calc(-50% + 26px), 0) rotateY(22deg) rotateZ(-1.4deg) scale(0.74);
+    --veil-opacity: 0.54;
+    --media-filter: blur(1.45px) saturate(0.58) brightness(0.34) contrast(0.88);
   }
 
   .project-card.right-near {
-    opacity: 0.46;
-    transform: translate3d(calc(-50% + clamp(120px, 42vw, 210px)), calc(-50% + 12px), 0) rotateY(-20deg) rotateZ(1.4deg) scale(0.78);
+    opacity: 0.32;
+    transform: translate3d(calc(-50% + clamp(130px, 46vw, 230px)), calc(-50% + 26px), 0) rotateY(-22deg) rotateZ(1.4deg) scale(0.74);
+    --veil-opacity: 0.54;
+    --media-filter: blur(1.45px) saturate(0.58) brightness(0.34) contrast(0.88);
   }
 
   .project-card.left-far {
-    opacity: 0.18;
-    transform: translate3d(calc(-50% - clamp(210px, 74vw, 360px)), calc(-50% + 24px), 0) rotateY(25deg) rotateZ(-2deg) scale(0.58);
+    opacity: 0.12;
+    transform: translate3d(calc(-50% - clamp(230px, 78vw, 380px)), calc(-50% + 36px), 0) rotateY(26deg) rotateZ(-2deg) scale(0.54);
+    --media-filter: blur(1.8px) saturate(0.5) brightness(0.28) contrast(0.84);
   }
 
   .project-card.right-far {
-    opacity: 0.18;
-    transform: translate3d(calc(-50% + clamp(210px, 74vw, 360px)), calc(-50% + 24px), 0) rotateY(-25deg) rotateZ(2deg) scale(0.58);
+    opacity: 0.12;
+    transform: translate3d(calc(-50% + clamp(230px, 78vw, 380px)), calc(-50% + 36px), 0) rotateY(-26deg) rotateZ(2deg) scale(0.54);
+    --media-filter: blur(1.8px) saturate(0.5) brightness(0.28) contrast(0.84);
   }
 
   .projects-proof {

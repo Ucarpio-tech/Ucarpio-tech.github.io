@@ -8,12 +8,24 @@
   <meta name="description" content="VIDRALIX desarrolla soluciones modernas en cristal y aluminio para proyectos residenciales y comerciales en República Dominicana." />
 
   <link rel="stylesheet" href="style.css" />
-  <link rel="shortcut icon" href="assets/favicon.ico?v=6" />
-  <link rel="icon" type="image/png" href="assets/favicon.png?v=6" />
-  <link rel="icon" href="assets/favicon-positive.svg?v=6" type="image/svg+xml" media="(prefers-color-scheme: light)" />
-  <link rel="icon" href="assets/favicon-negative.svg?v=6" type="image/svg+xml" media="(prefers-color-scheme: dark)" />
-  <link rel="icon" type="image/png" href="assets/favicon-positive.png?v=6" media="(prefers-color-scheme: light)" />
-  <link rel="icon" type="image/png" href="assets/favicon-negative.png?v=6" media="(prefers-color-scheme: dark)" />
+  <link rel="icon" href="assets/favicon-positive.svg?v=7" type="image/svg+xml" data-theme-favicon="svg" />
+  <link rel="icon" type="image/png" href="assets/favicon-positive.png?v=7" data-theme-favicon="png" />
+  <script>
+    (() => {
+      const media = window.matchMedia("(prefers-color-scheme: dark)");
+      const setFavicon = () => {
+        const mode = media.matches ? "negative" : "positive";
+
+        document.querySelectorAll("[data-theme-favicon]").forEach((icon) => {
+          const type = icon.dataset.themeFavicon;
+          icon.href = `assets/favicon-${mode}.${type}?v=7`;
+        });
+      };
+
+      setFavicon();
+      media.addEventListener?.("change", setFavicon);
+    })();
+  </script>
 </head>
 <body>
 
