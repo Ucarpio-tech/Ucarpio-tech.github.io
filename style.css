@@ -457,7 +457,7 @@ h2 {
 }
 
 .footer-logo {
-  width: 190px;
+  width: 54px;
   display: block;
 }
 
@@ -479,38 +479,28 @@ h2 {
 
 .footer-social {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 12px;
+  justify-content: flex-end;
+  align-items: center;
 }
 
-.footer-social span {
-  font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 0.22em;
-  color: rgba(255,255,255,0.62);
-  font-weight: 800;
-}
-
-.social-links {
-  display: flex;
-  gap: 10px;
-}
-
-.social-links a {
-  width: 44px;
-  height: 44px;
+.instagram-icon {
+  width: 48px;
+  height: 48px;
   border: 1px solid rgba(255,255,255,0.28);
   border-radius: 50%;
   display: grid;
   place-items: center;
   color: var(--white);
-  font-size: 13px;
-  font-weight: 900;
   transition: 0.25s ease;
 }
 
-.social-links a:hover {
+.instagram-icon svg {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+}
+
+.instagram-icon:hover {
   background: var(--white);
   color: var(--green);
   transform: translateY(-2px);
@@ -530,7 +520,7 @@ h2 {
   z-index: 40;
 }
 
-/* RESPONSIVE */
+/* RESPONSIVE TABLET */
 @media (max-width: 980px) {
   .header-inner {
     width: 90%;
@@ -578,6 +568,7 @@ h2 {
   }
 }
 
+/* RESPONSIVE CELULAR */
 @media (max-width: 700px) {
   .site-header {
     position: absolute;
@@ -656,6 +647,25 @@ h2 {
   .process-step {
     grid-template-columns: 1fr;
     gap: 18px;
+  }
+
+  .footer {
+    padding: 44px 0;
+  }
+
+  .footer-inner {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 24px;
+  }
+
+  .footer-logo {
+    width: 50px;
+    margin: 0 auto;
+  }
+
+  .footer-social {
+    justify-content: center;
   }
 
   .whatsapp-float {
