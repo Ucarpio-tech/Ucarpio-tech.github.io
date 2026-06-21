@@ -86,7 +86,7 @@ img {
   min-height: 100vh;
   color: var(--white);
   overflow: hidden;
-  background: var(--black);
+  background: #050505;
 }
 
 .hero-bg {
@@ -96,25 +96,13 @@ img {
     linear-gradient(
       180deg,
       rgba(0, 83, 83, 0.82) 0%,
-      rgba(12, 12, 12, 0.93) 58%,
-      #050505 100%
+      rgba(12, 12, 12, 0.88) 52%,
+      rgba(5, 5, 5, 1) 100%
     ),
     url("assets/fondo.jpg");
   background-size: cover;
   background-position: center;
   transform: scale(1.02);
-}
-
-.hero::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -1px;
-  height: 220px;
-  background: linear-gradient(180deg, rgba(5, 5, 5, 0), #050505 72%);
-  z-index: 1;
-  pointer-events: none;
 }
 
 .hero-inner {
@@ -123,7 +111,7 @@ img {
   width: min(1180px, 90%);
   min-height: 100vh;
   margin: 0 auto;
-  padding: 160px 0 100px;
+  padding: 160px 0 90px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -171,7 +159,7 @@ img {
   position: relative;
   overflow: hidden;
   background: #050505;
-  padding: 24px 0 130px;
+  padding: 10px 0 120px;
   color: var(--white);
   isolation: isolate;
 }
@@ -179,88 +167,56 @@ img {
 .projects-bg-layer {
   position: absolute;
   inset: 0;
-  z-index: -2;
+  z-index: -1;
   background:
-    radial-gradient(circle at 20% 25%, rgba(0, 83, 83, 0.38), transparent 30%),
-    radial-gradient(circle at 80% 50%, rgba(255, 255, 255, 0.08), transparent 20%),
+    radial-gradient(circle at 18% 28%, rgba(0, 83, 83, 0.28), transparent 28%),
+    radial-gradient(circle at 80% 52%, rgba(255, 255, 255, 0.06), transparent 18%),
     linear-gradient(180deg, #050505 0%, #050505 100%);
-}
-
-.projects-bg-layer::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-  background-size: 82px 82px;
-  opacity: 0.14;
-  mask-image: linear-gradient(180deg, transparent, black 20%, black 80%, transparent);
 }
 
 .projects-viewport {
   position: relative;
   width: 100%;
   overflow: hidden;
-  padding: 40px 0;
-}
-
-.projects-viewport::before,
-.projects-viewport::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  width: 15vw;
-  height: 100%;
-  z-index: 6;
-  pointer-events: none;
-}
-
-.projects-viewport::before {
-  left: 0;
-  background: linear-gradient(90deg, #050505 0%, rgba(5, 5, 5, 0) 100%);
-}
-
-.projects-viewport::after {
-  right: 0;
-  background: linear-gradient(270deg, #050505 0%, rgba(5, 5, 5, 0) 100%);
+  padding: 42px 0;
 }
 
 .project-track {
   display: flex;
   align-items: center;
-  gap: 28px;
+  gap: 38px;
   width: max-content;
-  transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 0.72s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: transform;
 }
 
 .project-card {
   position: relative;
   flex: 0 0 auto;
-  width: min(360px, 72vw);
+  width: min(430px, 76vw);
   aspect-ratio: 4 / 5;
-  border-radius: 30px;
+  border-radius: 28px;
   overflow: visible;
-  opacity: 0.24;
-  transform: scale(0.86);
+  opacity: 0.36;
   transition:
-    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 0.65s ease;
+    transform 0.72s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.52s ease;
+  transform-style: preserve-3d;
 }
 
 .project-card::before {
   content: "";
   position: absolute;
-  width: 82%;
-  height: 82%;
   left: 50%;
-  top: 50%;
+  top: 52%;
+  width: 88%;
+  height: 88%;
   transform: translate(-50%, -50%);
-  background: radial-gradient(circle, rgba(0, 83, 83, 0.58) 0%, rgba(0, 83, 83, 0.22) 40%, rgba(0, 83, 83, 0) 72%);
-  filter: blur(44px);
+  background:
+    radial-gradient(circle, rgba(0, 83, 83, 0.45) 0%, rgba(0, 83, 83, 0.18) 42%, rgba(0, 83, 83, 0) 72%);
+  filter: blur(40px);
   opacity: 0;
-  transition: opacity 0.6s ease;
+  transition: opacity 0.55s ease;
   z-index: -1;
   pointer-events: none;
 }
@@ -270,18 +226,19 @@ img {
   height: 100%;
   object-fit: cover;
   object-position: center;
-  border-radius: 30px;
-  filter: blur(4px) saturate(0.75) brightness(0.7);
-  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.32);
+  border-radius: 28px;
+  filter: blur(1.4px) saturate(0.92) brightness(0.8);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.34);
   transition:
-    filter 0.75s ease,
-    box-shadow 0.75s ease;
+    filter 0.72s ease,
+    box-shadow 0.72s ease,
+    transform 0.72s ease;
 }
 
 .project-card.active {
   opacity: 1;
-  transform: scale(1);
-  z-index: 3;
+  transform: perspective(1400px) rotateY(0deg) scale(1);
+  z-index: 5;
 }
 
 .project-card.active::before {
@@ -290,7 +247,57 @@ img {
 
 .project-card.active img {
   filter: none;
-  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.44);
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.44);
+}
+
+.project-card.left-near {
+  opacity: 0.72;
+  transform: perspective(1400px) rotateY(22deg) scale(0.96) translateY(10px);
+  z-index: 4;
+}
+
+.project-card.left-near img {
+  filter: blur(0.7px) saturate(0.98) brightness(0.88);
+}
+
+.project-card.right-near {
+  opacity: 0.72;
+  transform: perspective(1400px) rotateY(-22deg) scale(0.96) translateY(10px);
+  z-index: 4;
+}
+
+.project-card.right-near img {
+  filter: blur(0.7px) saturate(0.98) brightness(0.88);
+}
+
+.project-card.left-far {
+  opacity: 0.5;
+  transform: perspective(1400px) rotateY(30deg) scale(0.91) translateY(16px);
+  z-index: 3;
+}
+
+.project-card.left-far img {
+  filter: blur(1.1px) saturate(0.96) brightness(0.78);
+}
+
+.project-card.right-far {
+  opacity: 0.5;
+  transform: perspective(1400px) rotateY(-30deg) scale(0.91) translateY(16px);
+  z-index: 3;
+}
+
+.project-card.right-far img {
+  filter: blur(1.1px) saturate(0.96) brightness(0.78);
+}
+
+.project-card.muted {
+  opacity: 0.18;
+  transform: perspective(1400px) scale(0.86);
+  z-index: 1;
+}
+
+.project-card.muted img {
+  filter: blur(1.6px) saturate(0.88) brightness(0.68);
 }
 
 /* INTRO */
@@ -733,20 +740,40 @@ h2 {
   }
 
   .featured-projects {
-    padding: 10px 0 78px;
+    padding: 0 0 78px;
   }
 
   .projects-viewport {
     padding: 24px 0;
   }
 
+  .project-track {
+    gap: 20px;
+  }
+
   .project-card {
     width: 72vw;
-    border-radius: 24px;
+    border-radius: 22px;
   }
 
   .project-card img {
-    border-radius: 24px;
+    border-radius: 22px;
+  }
+
+  .project-card.left-near {
+    transform: perspective(1200px) rotateY(16deg) scale(0.95) translateY(8px);
+  }
+
+  .project-card.right-near {
+    transform: perspective(1200px) rotateY(-16deg) scale(0.95) translateY(8px);
+  }
+
+  .project-card.left-far {
+    transform: perspective(1200px) rotateY(22deg) scale(0.9) translateY(14px);
+  }
+
+  .project-card.right-far {
+    transform: perspective(1200px) rotateY(-22deg) scale(0.9) translateY(14px);
   }
 
   .intro,
