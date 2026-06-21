@@ -10,7 +10,7 @@ html {
 
 body {
   font-family: Arial, Helvetica, sans-serif;
-  background: #f5f1e8;
+  background: #050505;
   color: #111111;
   line-height: 1.5;
 }
@@ -27,6 +27,7 @@ img {
 
 :root {
   --dark: #0c0c0c;
+  --black: #050505;
   --green: #005353;
   --cream: #f5f1e8;
   --white: #ffffff;
@@ -85,18 +86,35 @@ img {
   min-height: 100vh;
   color: var(--white);
   overflow: hidden;
-  background: var(--dark);
+  background: var(--black);
 }
 
 .hero-bg {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(rgba(0, 83, 83, 0.80), rgba(12, 12, 12, 0.88)),
+    linear-gradient(
+      180deg,
+      rgba(0, 83, 83, 0.82) 0%,
+      rgba(12, 12, 12, 0.92) 62%,
+      #050505 100%
+    ),
     url("assets/fondo.jpg");
   background-size: cover;
   background-position: center;
   transform: scale(1.02);
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 180px;
+  background: linear-gradient(180deg, rgba(5,5,5,0), #050505 78%);
+  z-index: 1;
+  pointer-events: none;
 }
 
 .hero-inner {
@@ -105,7 +123,7 @@ img {
   width: min(1180px, 90%);
   min-height: 100vh;
   margin: 0 auto;
-  padding: 160px 0 70px;
+  padding: 160px 0 96px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -152,15 +170,39 @@ img {
 .featured-projects {
   position: relative;
   overflow: hidden;
-  background: var(--cream);
-  padding: 74px 0 86px;
+  background: #050505;
+  padding: 34px 0 125px;
+  color: var(--white);
+}
+
+.projects-glow {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(0, 83, 83, 0.42), transparent 34%),
+    radial-gradient(circle at 86% 52%, rgba(255, 255, 255, 0.08), transparent 26%),
+    linear-gradient(180deg, #050505 0%, #050505 100%);
+  pointer-events: none;
+}
+
+.projects-glow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+  background-size: 72px 72px;
+  opacity: 0.18;
+  mask-image: linear-gradient(180deg, rgba(0,0,0,0.1), rgba(0,0,0,0.9), rgba(0,0,0,0.1));
 }
 
 .projects-marquee {
   position: relative;
   width: 100%;
   overflow: hidden;
-  perspective: 1200px;
+  perspective: 1300px;
+  z-index: 2;
 }
 
 .projects-marquee::before,
@@ -168,29 +210,30 @@ img {
   content: "";
   position: absolute;
   top: 0;
-  width: 12vw;
+  width: 13vw;
   height: 100%;
-  z-index: 3;
+  z-index: 5;
   pointer-events: none;
 }
 
 .projects-marquee::before {
   left: 0;
-  background: linear-gradient(90deg, var(--cream), rgba(245, 241, 232, 0));
+  background: linear-gradient(90deg, #050505, rgba(5, 5, 5, 0));
 }
 
 .projects-marquee::after {
   right: 0;
-  background: linear-gradient(270deg, var(--cream), rgba(245, 241, 232, 0));
+  background: linear-gradient(270deg, #050505, rgba(5, 5, 5, 0));
 }
 
 .projects-track {
   display: flex;
   align-items: center;
-  gap: 28px;
+  gap: 34px;
   width: max-content;
-  animation: projectsFlow 42s linear infinite;
+  animation: projectsFlow 46s linear infinite;
   will-change: transform;
+  padding: 46px 0;
 }
 
 .projects-marquee:hover .projects-track {
@@ -198,25 +241,66 @@ img {
 }
 
 .project-card {
+  position: relative;
   width: min(520px, 76vw);
-  height: 680px;
+  height: 690px;
   flex: 0 0 auto;
   overflow: hidden;
-  background: var(--cream);
-  box-shadow: 0 28px 70px rgba(0,0,0,0.16);
+  background: rgba(255,255,255,0.04);
+  box-shadow:
+    0 36px 80px rgba(0,0,0,0.42),
+    0 0 0 1px rgba(255,255,255,0.08),
+    inset 0 0 0 1px rgba(255,255,255,0.04);
   transform: rotate(-2deg) translateY(18px);
+  animation: cardFloat 7s ease-in-out infinite;
 }
 
 .project-card:nth-child(2n) {
   transform: rotate(2deg) translateY(-24px);
+  animation-delay: -1.8s;
 }
 
 .project-card:nth-child(3n) {
   transform: rotate(-1deg) translateY(34px);
+  animation-delay: -3.2s;
 }
 
 .project-card:nth-child(4n) {
   transform: rotate(1.5deg) translateY(-10px);
+  animation-delay: -4.4s;
+}
+
+.project-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background:
+    linear-gradient(
+      115deg,
+      transparent 0%,
+      rgba(255,255,255,0.05) 28%,
+      rgba(255,255,255,0.30) 43%,
+      rgba(0, 255, 210, 0.16) 50%,
+      rgba(255,255,255,0.08) 58%,
+      transparent 78%
+    );
+  transform: translateX(-130%);
+  animation: holoSweep 5.8s ease-in-out infinite;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.project-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(255,255,255,0.28), transparent 24%),
+    linear-gradient(180deg, rgba(255,255,255,0.08), transparent 38%, rgba(0,0,0,0.22));
+  opacity: 0.55;
+  pointer-events: none;
 }
 
 .project-card img {
@@ -224,11 +308,16 @@ img {
   height: 100%;
   object-fit: cover;
   object-position: center;
+  filter: saturate(1.04) contrast(1.02);
   transition: 0.7s ease;
 }
 
 .project-card:hover img {
   transform: scale(1.035);
+}
+
+.project-card:hover::before {
+  animation-duration: 2.6s;
 }
 
 @keyframes projectsFlow {
@@ -237,7 +326,38 @@ img {
   }
 
   to {
-    transform: translateX(calc(-50% - 14px));
+    transform: translateX(calc(-50% - 17px));
+  }
+}
+
+@keyframes holoSweep {
+  0% {
+    transform: translateX(-135%) skewX(-12deg);
+    opacity: 0;
+  }
+
+  18% {
+    opacity: 0.85;
+  }
+
+  48% {
+    transform: translateX(135%) skewX(-12deg);
+    opacity: 0.55;
+  }
+
+  100% {
+    transform: translateX(135%) skewX(-12deg);
+    opacity: 0;
+  }
+}
+
+@keyframes cardFloat {
+  0%, 100% {
+    translate: 0 0;
+  }
+
+  50% {
+    translate: 0 -14px;
   }
 }
 
@@ -663,7 +783,7 @@ h2 {
   }
 
   .hero-inner {
-    padding: 170px 0 55px;
+    padding: 170px 0 70px;
   }
 
   .hero-label,
@@ -681,18 +801,21 @@ h2 {
   }
 
   .featured-projects {
-    padding: 54px 0 62px;
+    padding: 36px 0 82px;
   }
 
   .projects-track {
     gap: 18px;
-    animation-duration: 34s;
+    animation-duration: 36s;
+    padding: 30px 0;
   }
 
   .project-card {
     width: 76vw;
-    height: 500px;
-    box-shadow: 0 20px 48px rgba(0,0,0,0.14);
+    height: 520px;
+    box-shadow:
+      0 24px 58px rgba(0,0,0,0.34),
+      0 0 0 1px rgba(255,255,255,0.08);
   }
 
   .intro,
