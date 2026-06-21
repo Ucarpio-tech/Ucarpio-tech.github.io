@@ -9,14 +9,14 @@ const middleEnd = groupSize * 2 - 1;
 let currentIndex = middleStart;
 let autoplay = null;
 
-const stepDuration = 2400;       // más rápido entre muestras
-const transitionDuration = 720;  // transición más ágil
+const stepDuration = 2100;
+const transitionDuration = 620;
 
 function setTrackPadding() {
   if (!viewport || !cards.length) return;
 
   const cardWidth = cards[0].offsetWidth;
-  const sidePadding = Math.max(16, (viewport.clientWidth - cardWidth) / 2);
+  const sidePadding = Math.max(18, (viewport.clientWidth - cardWidth) / 2);
 
   track.style.paddingLeft = `${sidePadding}px`;
   track.style.paddingRight = `${sidePadding}px`;
@@ -75,16 +75,23 @@ function updateCarousel(animate = true) {
   track.style.transform = `translateX(${-targetX}px)`;
 }
 
+function normalizeIndex() {
+  if (currentIndex < middleStart) {
+    currentIndex += groupSize;
+    updateCarousel(false);
+  }
+
+  if (currentIndex > middleEnd) {
+    currentIndex -= groupSize;
+    updateCarousel(false);
+  }
+}
+
 function nextSlide() {
   currentIndex += 1;
   updateCarousel(true);
 
-  if (currentIndex > middleEnd) {
-    setTimeout(() => {
-      currentIndex = middleStart;
-      updateCarousel(false);
-    }, transitionDuration + 20);
-  }
+  setTimeout(normalizeIndex, transitionDuration + 30);
 }
 
 function startAutoplay() {
@@ -121,15 +128,8 @@ cards.forEach((card, index) => {
     updateCarousel(true);
 
     setTimeout(() => {
-      if (currentIndex < middleStart) {
-        currentIndex += groupSize;
-        updateCarousel(false);
-      } else if (currentIndex > middleEnd) {
-        currentIndex -= groupSize;
-        updateCarousel(false);
-      }
-
+      normalizeIndex();
       startAutoplay();
-    }, transitionDuration + 20);
+    }, transitionDuration + 40);
   });
 });
