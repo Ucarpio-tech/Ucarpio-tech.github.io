@@ -218,30 +218,6 @@ img {
   --image-scale: 1;
 }
 
-.project-card::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 52%;
-  width: 126%;
-  height: 118%;
-  transform: translate(-50%, -50%);
-  background:
-    radial-gradient(
-      circle,
-      rgba(0, 83, 83, 0.72) 0%,
-      rgba(0, 83, 83, 0.38) 34%,
-      rgba(0, 83, 83, 0.12) 64%,
-      rgba(0, 83, 83, 0) 80%
-    );
-  filter: blur(42px);
-  opacity: 0;
-  transition: opacity 0.46s ease;
-  z-index: -1;
-  pointer-events: none;
-  transform-origin: center;
-}
-
 .project-card::after {
   content: "";
   position: absolute;
@@ -301,10 +277,6 @@ img {
   --veil-opacity: 0;
   --media-filter: saturate(1.06) brightness(1.03) contrast(1.04);
   --image-scale: 1.012;
-}
-
-.project-card.active::before {
-  opacity: 0.88;
 }
 
 .project-card.active::after {
@@ -899,13 +871,6 @@ h2 {
   .project-card {
     width: min(72vw, 360px);
     border-radius: 26px;
-  }
-
-  .project-card::before {
-    top: 58%;
-    width: 92%;
-    height: 72%;
-    filter: blur(28px);
   }
 
   .project-card::after {
