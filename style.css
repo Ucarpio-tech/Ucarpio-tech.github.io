@@ -58,12 +58,29 @@ img {
 
 .logo {
   width: 230px;
-  display: block;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 7px;
+  --logo-tagline-offset: 54px;
 }
 
 .logo img {
   width: 100%;
   height: auto;
+}
+
+.logo-tagline {
+  display: block;
+  padding-left: var(--logo-tagline-offset);
+  font-family: "Manrope", Arial, Helvetica, sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: rgba(255, 255, 255, 0.76);
 }
 
 .nav-menu {
@@ -121,7 +138,6 @@ img {
   justify-content: flex-end;
 }
 
-.hero-label,
 .eyebrow {
   display: inline-block;
   font-family: "Space Grotesk", "Manrope", sans-serif;
@@ -129,10 +145,6 @@ img {
   text-transform: uppercase;
   letter-spacing: 0;
   font-weight: 700;
-}
-
-.hero-label {
-  margin-bottom: 26px;
 }
 
 .hero h1 {
@@ -644,7 +656,7 @@ h2 {
 }
 
 .footer-logo {
-  width: 58px;
+  width: 72px;
   display: block;
 }
 
@@ -753,6 +765,7 @@ h2 {
 
   .logo {
     width: 210px;
+    --logo-tagline-offset: 49px;
   }
 
   .hero h1 {
@@ -829,6 +842,11 @@ h2 {
 
   .logo {
     width: 190px;
+    --logo-tagline-offset: 44px;
+  }
+
+  .logo-tagline {
+    font-size: 9px;
   }
 
   .nav-menu {
@@ -845,7 +863,6 @@ h2 {
     padding: 170px 0 72px;
   }
 
-  .hero-label,
   .eyebrow {
     font-size: 11px;
   }
