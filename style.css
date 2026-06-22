@@ -59,12 +59,12 @@ img {
 .logo {
   display: inline-flex;
   align-items: center;
-  gap: 13px;
-  --logo-source-width: 230px;
-  --logo-wordmark-offset: 54px;
-  --logo-wordmark-width: 171px;
-  --logo-wordmark-height: 36px;
-  --logo-mark-width: 66px;
+  gap: 10px;
+  --logo-source-width: 202px;
+  --logo-wordmark-offset: 47px;
+  --logo-wordmark-width: 150px;
+  --logo-wordmark-height: 31px;
+  --logo-mark-width: 55px;
 }
 
 .logo img {
@@ -84,7 +84,7 @@ img {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 7px;
+  gap: 6px;
 }
 
 .logo-wordmark {
@@ -103,7 +103,7 @@ img {
 .logo-tagline {
   display: block;
   font-family: "Manrope", Arial, Helvetica, sans-serif;
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 400;
   line-height: 1;
   letter-spacing: 0;
@@ -685,7 +685,7 @@ h2 {
 }
 
 .footer-logo {
-  width: 66px;
+  width: 60px;
   display: block;
 }
 
@@ -793,12 +793,12 @@ h2 {
   }
 
   .logo {
-    gap: 12px;
-    --logo-source-width: 210px;
-    --logo-wordmark-offset: 49px;
-    --logo-wordmark-width: 156px;
-    --logo-wordmark-height: 33px;
-    --logo-mark-width: 62px;
+    gap: 9px;
+    --logo-source-width: 188px;
+    --logo-wordmark-offset: 44px;
+    --logo-wordmark-width: 140px;
+    --logo-wordmark-height: 29px;
+    --logo-mark-width: 50px;
   }
 
   .hero h1 {
@@ -868,32 +868,32 @@ h2 {
   }
 
   .header-inner {
-    padding: 26px 0;
+    padding: 22px 0;
     flex-direction: column;
-    gap: 20px;
+    gap: 16px;
   }
 
   .logo {
-    gap: 11px;
-    --logo-source-width: 190px;
-    --logo-wordmark-offset: 44px;
-    --logo-wordmark-width: 142px;
-    --logo-wordmark-height: 30px;
-    --logo-mark-width: 56px;
+    gap: 8px;
+    --logo-source-width: 170px;
+    --logo-wordmark-offset: 40px;
+    --logo-wordmark-width: 126px;
+    --logo-wordmark-height: 26px;
+    --logo-mark-width: 44px;
   }
 
   .logo-tagline {
-    font-size: 9px;
+    font-size: 8px;
   }
 
   .nav-menu {
-    gap: 18px;
+    gap: 14px;
     flex-wrap: wrap;
     justify-content: center;
   }
 
   .nav-menu a {
-    font-size: 14px;
+    font-size: 13px;
   }
 
   .hero-inner {
