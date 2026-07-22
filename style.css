@@ -898,6 +898,7 @@ h2 {
 
   .hero-inner {
     padding: 170px 0 72px;
+    justify-content: center;
   }
 
   .eyebrow {
